@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!--
+        <context:annotation-config>:注解扫描是针对已经在Spring容器里注册过的Bean
+
+        <context:component-scan>:不仅具备<context:annotation-config>的所有功能，还可以在指定的package下面扫描对应的bean-->
+    <!-- 自动扫描service,controller组件 -->
+    <!--<context:component-scan base-package="com.wqzhanghang.*">-->
+    <context:component-scan base-package="com.wqzhang.*.*">
+
+        <context:include-filter type="annotation"
+                                expression="org.aspectj.lang.annotation.Aspect"/>
+    </context:component-scan>
+    <!--启动@AspectJ支持 -->
+    <aop:aspectj-autoproxy/>
+
+
+    <!--</context:component-scan>-->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
+
+
+    <bean id="qunarBookingService" class="com.wqzhang.QunarBookingService"></bean>
+
+    <bean id="boss" class="com.wqzhang.Boss">
+    <property name="bookingService" ref="qunarBookingService"></property>
+    </bean>
+
+
+    <bean id="tt" class="com.wqzhang.LogAspect"></bean>
+
+    <!--<bean id="aspectBean" class="com.wqzhanghang.LogAspect"></bean>-->
+    <!--<aop:config>-->
+    <!--<aop:aspect id="TestAspect" ref="aspectBean">-->
+    <!--<aop:pointcut id="businessService"-->
+    <!--expression="execution(* com.spring.service.*.*(String,..)) and args(msg,..)" />-->
+    <!--<aop:after pointcut-ref="businessService" method="doAfter"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+
+</beans>
