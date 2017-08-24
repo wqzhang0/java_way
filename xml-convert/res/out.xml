@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Students>
+    <studentA Name="NAME_A">我是A 我很自信</studentA>
+    <studentB Name="NAME_B">textNode</studentB>
+    <studentC Name="NAME_C"/>
+    <studentD Name="NAME_D"/>
+    <studentE Name="NAME_E"/>
+</Students>
