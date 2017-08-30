@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<Root>
+  <检验中文格式是否乱码/>
+  <Class id="class_id">
+    <teachers id="teachers">
+      <chineseTeacher age="24">Mr Zhang</chineseTeacher>
+      <englishTeacher age="21">Mr Liang</englishTeacher>
+    </teachers>
+  </Class>
+</Root>

@@ -12,8 +12,9 @@ public class Main {
         //DOM、SAX、JDOM和DOM4J
 
         //生成XML 文件
-        CreateXML createXML = new CreateXML();
-//        createXML.create(CreateXML.WAY_JDOM);
-        createXML.create(CreateXML.WAY_DOM4J);
+        XMLTools xmlTools = new XMLTools();
+//        xmlTools.create(CreateXML.WAY_JDOM);
+//        xmlTools.create(XMLTools.WAY_DOM4J);
+        xmlTools.parse("D:\\java_way\\xml-convert\\res\\testParse.xml",XMLTools.WAY_DOM4J);
     }
 }

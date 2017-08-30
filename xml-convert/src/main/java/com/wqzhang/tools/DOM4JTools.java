@@ -1,19 +1,19 @@
 package com.wqzhang.tools;
 
-import com.wqzhang.util.FileTool;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.DocumentType;
-import org.dom4j.Element;
+import com.wqzhang.intefter.CreateXML;
+import com.wqzhang.intefter.ParseXML;
+import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * Created by wqzhang on 2017/8/29.
  */
-public class DOM4JTools implements CreateXML {
+public class DOM4JTools implements CreateXML, ParseXML {
 
     private static DOM4JTools dom4JTools;
 
@@ -67,5 +67,25 @@ public class DOM4JTools implements CreateXML {
         xmlWriter.write(document);
         xmlWriter.flush();
         xmlWriter.close();
+    }
+
+    public void parse(String filePath) {
+        //获取文件流
+        SAXReader saxReader = new SAXReader();
+        try {
+            Document document = saxReader.read(new File(filePath));
+            Element rootElement = document.getRootElement();
+            List<Element> elementList = rootElement.elements();
+            for (Element element : elementList) {
+                System.out.println(element.getQName().getNamespace().getPrefix() + "| " + element.getNamespaceURI());
+                System.out.println(element.getName() + "  " + element.getText());
+
+            }
+//            element.getName()
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

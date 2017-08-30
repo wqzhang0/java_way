@@ -1,4 +1,4 @@
-package com.wqzhang.tools;
+package com.wqzhang.intefter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
