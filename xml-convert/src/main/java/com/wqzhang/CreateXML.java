@@ -1,91 +1,56 @@
 package com.wqzhang;
 
 
-import com.wqzhang.util.FileTool;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import com.wqzhang.tools.DOM4JTools;
+import com.wqzhang.tools.JDOMTools;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
-import java.io.StringWriter;
 
 /**
  * Created by wqzhang on 2017/8/24.
+ *
+ *
+ *在上面的代码中输出使用的是FileWriter对象进行文件的输出。这就是不能
+ *
+ *正确进行文件编码的原因所在，java中由Writer类继承下来的子类没有提供编码
+ *
+ *格式处理，所以dom4j也就无法对输出的文件进行正确的格式处理。这时候所保
+ *
+ *存的文件会以系统的默认编码对文件进行保存，在中文版的window下java的默认
+ *
+ *的编码为GBK，也就是所虽然我们标识了要将xml保存为utf-8格式但实际上文件
+ *
+ *是以GBK格式来保存的，所以这也就是为什么能够我们使用GBK、GB2312编码来生
+ *
+ *成xml文件能正确的被解析，而以UTF-8格式生成的文件不能被xml解析器所解析
+ *
+ *的原因。
+
  */
 public class CreateXML {
     public static final int WAY_JDOM = 1;
+    public static final int WAY_DOM4J = 2;
 
     public void create(int type) {
-        if (WAY_JDOM == type) {
-            try {
-                JDOMcreate();
-            } catch (TransformerException e) {
-                e.printStackTrace();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+        try {
+            if (WAY_JDOM == type) {
+                JDOMTools.getInstance().create();
+            }else if(WAY_DOM4J == type){
+                DOM4JTools.getInstance().create();
             }
+
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
-    public void JDOMcreate() throws TransformerException, ParserConfigurationException, IOException {
-
-        DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docbuilder = dbfactory.newDocumentBuilder();
-        //创建 Documet
-        Document document = docbuilder.newDocument();
-        //增加第一个节点
-        Element root = document.createElement("Students");
-        document.appendChild(root);
-        //创建子节点
-        Element studentA = document.createElement("studentA");
-        Element studentB = document.createElement("studentB");
-        Element studentC = document.createElement("studentC");
-        Element studentD = document.createElement("studentD");
-        Element studentE = document.createElement("studentE");
-
-        studentA.setAttribute("Name", "NAME_A");
-        studentA.setTextContent("我是A  我很自信");
-        studentB.setAttribute("Name", "NAME_B");
-        studentB.setNodeValue("NodeValue");
-        studentB.appendChild(document.createTextNode("textNode"));
-        studentC.setAttribute("Name", "NAME_C");
-        studentD.setAttribute("Name", "NAME_D");
-        studentE.setAttribute("Name", "NAME_E");
-
-        root.appendChild(studentA);
-        root.appendChild(studentB);
-        root.appendChild(studentC);
-        root.appendChild(studentD);
-        root.appendChild(studentE);
-
-        StringWriter outWriter = new StringWriter();
-        StreamResult streamResult = new StreamResult(outWriter);
-
-        TransformerFactory tfactory = TransformerFactory.newInstance();
-        Transformer transformer = tfactory.newTransformer();
-        //设置换行
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        //设置格式 4个空格（猜测）
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        // 因为个人项目使用GBK编码，这里使用GBK格式输出  否则乱码
-        transformer.setOutputProperty("encoding", "GBK");
-
-        transformer.transform(new DOMSource(root), streamResult);
-        String createStr = outWriter.getBuffer().toString();
-        System.out.print(createStr);
-        FileTool.outPutFile(createStr, "D:\\java_way\\xml-convert\\res\\JDOMOut.xml");
-    }
-
 
 }

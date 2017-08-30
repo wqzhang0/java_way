@@ -13,6 +13,7 @@ public class Main {
 
         //生成XML 文件
         CreateXML createXML = new CreateXML();
-        createXML.create(CreateXML.WAY_JDOM);
+//        createXML.create(CreateXML.WAY_JDOM);
+        createXML.create(CreateXML.WAY_DOM4J);
     }
 }
