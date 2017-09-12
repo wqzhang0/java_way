@@ -25,7 +25,12 @@
         <module>page-plugin</module>
         <module>common</module>
         <module>xml-convert</module>
+        <module>spring-aop</module>
+        <module>CreateValideCode</module>
+
     </modules>
+
+
 
     <dependencies>
         <dependency>

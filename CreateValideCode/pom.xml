@@ -7,20 +7,19 @@
         <groupId>com.wqzhang.java-way</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>page-plugin</artifactId>
-    <packaging>war</packaging>
+    <artifactId>CreateValideCode</artifactId>
+
     <build>
         <finalName>pagePlugin</finalName>
         <plugins>
-            <!-- 增加此依赖 为了解决maven 打包  找不到web.xml 路径-->
+            <!-- 澧炲姞姝や緷璧� 涓轰簡瑙ｅ喅maven 鎵撳寘  鎵句笉鍒皐eb.xml 璺緞-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <!--路径要根据项目具体设置-->
+                    <!--璺緞瑕佹牴鎹」鐩叿浣撹缃�-->
                     <webXml>web\WEB-INF\web.xml</webXml>
                 </configuration>
             </plugin>
