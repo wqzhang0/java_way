@@ -8,4 +8,5 @@
     <context:component-scan base-package="com.wqzhang.service.*"/>
     <context:component-scan base-package="com.wqzhang.controller.*"/>
 
+
 </beans>

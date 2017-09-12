@@ -27,6 +27,8 @@ public class LoginController extends BaseController {
     @RequestMapping("/login.do")
     public ModelAndView login(Page page) {
         loginService.checkLogin(page);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/jsp/index");
         return new ModelAndView();
     }
 }
