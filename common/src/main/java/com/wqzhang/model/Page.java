@@ -6,28 +6,18 @@ import java.io.Serializable;
  * Created by wqzhang on 2017/9/12.
  */
 public class Page implements Serializable {
-    /**
-     * 分页的数量
-     */
+
     private int showCount;
-    /**
-     * 当前页
-     */
+
     private int currentPage;
 
-    /**
-     * 总页数
-     */
+
     private int totalPage;
 
-    /**
-     * 总结果数量
-     */
+
     private int totalResult;
 
-    /**
-     * 当前记录起始索引
-     */
+
     private int currentResult;
 
     private PageData pd = new PageData();

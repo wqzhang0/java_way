@@ -23,12 +23,11 @@ public class LoginController extends BaseController {
     @Autowired
     @Qualifier("loginService")
     LoginManager loginService;
-
-    @RequestMapping("/login.do")
+    @RequestMapping("/login")
     public ModelAndView login(Page page) {
         loginService.checkLogin(page);
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/jsp/index");
-        return new ModelAndView();
+        mv.setViewName("/index");
+        return mv;
     }
 }
