@@ -27,9 +27,30 @@
         <module>xml-convert</module>
         <!--<module>spring-aop</module>-->
         <module>CreateValideCode</module>
+        <module>user_api</module>
+        <module>user_service</module>
 
     </modules>
 
+    <!-- JAR包版本管理 -->
+    <properties>
+        <maven-resources-plugin.version>2.4.3</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <freemarker.version>2.3.23</freemarker.version>
+        <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
+        <druid.version>1.0.11</druid.version>
+        <dubbo.version>2.5.3</dubbo.version>
+        <spring-boot-starter-dubbo.version>1.0.0</spring-boot-starter-dubbo.version>
+        <spring-boot-start.version>1.5.1.RELEASE</spring-boot-start.version>
+        <commons-pool2.version>2.4.2</commons-pool2.version>
+        <zkclient.version>0.7</zkclient.version>
+        <jackson-mapper-asl.version>1.9.11</jackson-mapper-asl.version>
+        <mybatis-spring-boot-starter.version>1.2.0</mybatis-spring-boot-starter.version>
+        <fastjson.version>1.2.7</fastjson.version>
+    </properties>
 
 
     <dependencies>
