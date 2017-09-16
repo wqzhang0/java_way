@@ -2,12 +2,16 @@ package com.wqzhang.controller.system;
 
 import com.wqzhang.controller.BaseController;
 import com.wqzhang.model.Page;
+import com.wqzhang.model.PageData;
 import com.wqzhang.service.system.LoginManager;
+import com.wqzhang.user.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
 
 /**
  * Created by wqzhang on 2017/9/12.
@@ -23,8 +27,13 @@ public class LoginController extends BaseController {
     @Autowired
     @Qualifier("loginService")
     LoginManager loginService;
+
+
     @RequestMapping("/login")
     public ModelAndView login(Page page) {
+        PageData pd = new PageData();
+        pd.put("STUDENT_ID",1);
+        page.setPd(pd);
         loginService.checkLogin(page);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/index");

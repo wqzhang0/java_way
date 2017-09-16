@@ -14,7 +14,7 @@ public class UserServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UserServiceApplication.class, args);
 
-		System.out.print("============================ 预约Dubbo服务启动成功 ============================");
+		System.out.print("============================ 用户模块Dubbo服务启动成功 ============================");
 
 		synchronized (UserServiceApplication.class) {
 			while (running) {

@@ -17,5 +17,5 @@ public interface UserMapper {
     void insertUser(PageData pd);
 
 
-    List<HashMap<Object, Object>> getUser(PageData pd);
+    PageData getUser(PageData pd);
 }

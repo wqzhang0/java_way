@@ -3,8 +3,8 @@
 <mapper namespace="com.wqzhang.user.mapper.UserMapper">
 	  
 	  <!-- 查询出表头的时间段 -->
-	<select id="getUser" parameterType="java.util.Map" resultType="java.util.Map">
-		 select id,name from student
+	<select id="getUser" parameterType="com.wqzhang.model.PageData" resultType="com.wqzhang.model.PageData">
+		 select id,name from student where id = #{STUDENT_ID,jdbcType=INTEGER}
 	</select>
 	 
 	<insert id="insertUser" parameterType="java.util.Map">
