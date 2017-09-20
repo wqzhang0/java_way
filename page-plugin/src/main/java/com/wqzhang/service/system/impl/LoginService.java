@@ -22,8 +22,12 @@ public class LoginService implements LoginManager {
 
     public Object checkLogin(Page page) {
 
-        PageData userInfo = PageData userService.getUser(page.getPd());
+        PageData userInfo = userService.getUser(page.getPd());
         System.out.print(userInfo.size());
         return userInfo;
+    }
+
+    public List<PageData> listAllUser() {
+        return userService.listAllUser();
     }
 }

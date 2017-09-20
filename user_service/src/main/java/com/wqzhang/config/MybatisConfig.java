@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -29,7 +30,7 @@ public class MybatisConfig {
     public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-//		sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
+		sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources("classpath:mapper/*.xml");
         sqlSessionFactoryBean.setMapperLocations(resources);

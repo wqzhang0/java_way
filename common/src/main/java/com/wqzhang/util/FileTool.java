@@ -9,10 +9,10 @@ import java.io.IOException;
  */
 public class FileTool {
     /**
-     * Êä³öÎÄ¼þ
+     * è¾“å‡ºæ–‡ä»¶
      *
-     * @param content  ×Ö·û´®
-     * @param fileName Â·¾¶
+     * @param content  å­—ç¬¦ä¸²
+     * @param fileName è·¯å¾„
      * @throws IOException
      */
     public static void outPutFile(String content, String fileName) throws IOException {
@@ -23,10 +23,10 @@ public class FileTool {
     }
 
     /**
-     * Êä³öÎÄ¼þ
+     * è¾“å‡ºæ–‡ä»¶
      *
-     * @param content  ×Ö·û´®
-     * @param fileName Â·¾¶
+     * @param content  å­—ç¬¦ä¸²
+     * @param fileName è·¯å¾„
      * @throws IOException
      */
     public static void outPutFile2(String content, String fileName) throws IOException {

@@ -1,5 +1,6 @@
 package com.wqzhang.user.mapper;
 
+import com.wqzhang.model.Page;
 import com.wqzhang.model.PageData;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -18,4 +19,8 @@ public interface UserMapper {
 
 
     PageData getUser(PageData pd);
+
+    List<PageData> listAllUser();
+
+    List<PageData> userlistPage(Page page);
 }
