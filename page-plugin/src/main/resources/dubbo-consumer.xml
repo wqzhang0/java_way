@@ -23,4 +23,5 @@
 
 	<dubbo:reference interface="com.wqzhang.user.service.UserManager" id="userService" check="false"  />
 
+
 </beans>

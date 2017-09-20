@@ -22,14 +22,25 @@ public class UserServiceApplicationTests {
     public void contextLoads() {
 //        listAllUser();
 
-        testPage();
+//        testPage();
+
+        testPageDubbo();
     }
+
 
     public void testPage() {
         Page page = new Page();
         List<PageData> userTen = userService.userlistPageNoPage(page);
         System.out.print(userTen.size());
     }
+
+
+    public void testPageDubbo() {
+        Page page = new Page();
+        userService.userlistPage(page);
+//        System.out.print(userTen.size());
+    }
+
 
     //    @Test
     public void listAllUser() {
