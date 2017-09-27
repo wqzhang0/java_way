@@ -36,4 +36,12 @@ public class DemoShowController extends BaseController {
         mv.setViewName("/test/datatableDemo");
         return mv;
     }
+
+    @RequestMapping("/goTreeDemo")
+    public ModelAndView goDataTablesDemo() {
+        ModelAndView mv = this.getModelAndViwe();
+
+        mv.setViewName("/menu/menu_list");
+        return mv;
+    }
 }
