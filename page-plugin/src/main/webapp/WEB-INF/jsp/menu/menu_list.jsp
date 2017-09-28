@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wqzhang
@@ -84,6 +85,14 @@
                 }
             ];
             return tree;
+        }
+
+
+        function getTree2() {
+            <%--var tmpData = "${menuList}";--%>
+            <%--//            alert(tmpData);--%>
+
+            <%--return tmpData;--%>
         }
 
         //        参数名称	参数类型	默认值	描述
@@ -188,16 +197,64 @@
 //                }
             });
 
+
+            $('#tree2').treeview({
+                data: ${menuList},
+                levels: 5,
+                //背景颜色
+                backColor: '#000000',
+                //字体颜色
+                color: '#6CCAB8',
+                onhoverColor: "#F3976C",
+                //是否展示边框
+                showBorder: true,
+                //是否展示选择框
+                showCheckbox: true,
+                //是否展示图标
+                showIcon: true,
+                state: {
+                    checked: true,
+                    disabled: true,
+                    expanded: true,
+                    selected: true
+                },
+
+                onNodeChecked: function (event, node) {
+                    var childrens = node.nodes; //是否有子节点
+                    if (childrens) {//有后代节点
+                        checkedChild(childrens);//选中所有的后代节点
+                        $('#tree').treeview('expandNode', [node.nodeId, {levels: 4, silent: true}]);
+                    }
+                    //选中展开
+                    var parentNode = $('#tree').treeview('getParent', node); //父节点
+                    if (parentNode.state) {//选中一个节点其父节点以上均被选中
+                        checkedParent(parentNode);
+                    }
+                },
+                onNodeUnchecked: function (event, node) {
+                    var childrens = node.nodes;
+                    if (childrens) {//父节点被取消选中子节点默认取消
+                        delChildrens(childrens);
+                    } //兄弟节点都被取消则取消父节点
+                    var siblingsNode = $('#tree').treeview('getSiblings', node);
+                    delSiblings(siblingsNode);
+                },
+                onNodeUnselected: function (event, data) {
+                },
+                onNodeSelected: function (event, data) {
+                }
+            });
+
         });
 
         //选择节点
         function expandByNodeId(_nodeId) {
-            $('#tree').treeview('expandNode', [_nodeId, { silent: true}]);
+            $('#tree').treeview('expandNode', [_nodeId, {silent: true}]);
 //            $("#tree").treeview("checkNode", [_nodeId, {slient: true}]);
         }
         //取消选择节点
         function collapseByNodeId(_nodeId) {
-            $("#tree").treeview("collapseNode", [_nodeId, { slient: true, ignoreChildren: false}]);
+            $("#tree").treeview("collapseNode", [_nodeId, {slient: true, ignoreChildren: false}]);
         }
         //检查是否有子节点被选择
         function havChildChecked(_nodeId) {
@@ -248,8 +305,23 @@
     </script>
 </head>
 <body>
+<center>
+    <table>
 
-<div id="tree" style="width:300px;padding-left: 20px;padding-top: 10px;"></div>
+        <tr>
+            <td><h3>固定数据菜单 用来比较格式</h3></td>
+            <td style="padding-left: 50px;"><h3>数据库中菜单Demo</h3></td>
+        </tr>
+        <tr>
+            <td>
+                <div id="tree" style="width:300px;padding-left: 20px;padding-top: 10px; float:left;"></div>
+            </td>
+            <td style="padding-left: 50px;">
+                <div id="tree2" style="width:300px;padding-left: 20px;padding-top: 10px;float:left;"></div>
+            </td>
 
+        </tr>
+    </table>
+</center>
 </body>
 </html>

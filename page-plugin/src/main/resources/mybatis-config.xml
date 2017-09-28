@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.wqzhang.model.PageData" alias="pd"/>
+        <!-- 分页 -->
+        <typeAlias type="com.wqzhang.model.Page" alias="Page"/>
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.wqzhang.plugin.PagePlugin">
+            <property name="dialect" value="mysql"/>
+            <property name="pageSqlId" value=".*listPage.*"/>
+            <property name="pageNoCountSqlId" value=".*listNoCountPage.*"/>
+        </plugin>
+    </plugins>
+    
+
+</configuration>

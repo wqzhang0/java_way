@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wqzhang.user.mapper.UserMapper">
+
+    <!-- 查询出表头的时间段 -->
+    <select id="getUser" parameterType="pd" resultType="pd">
+		 select id,name from student where id = #{STUDENT_ID,jdbcType=INTEGER}
+	</select>
+
+    <insert id="insertUser" parameterType="pd">
+		insert into student
+			(name)
+			VALUE (
+				#{NAME}
+			)
+	</insert>
+
+    <select id="listAllUser" resultType="pd">
+		select id ID ,name NAME from student
+	</select>
+
+
+	<select id="userlistPage" resultType="pd" parameterType="page">
+		select id ID ,name NAME from student
+	</select>
+
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.wqzhang.service.system;
+package com.wqzhang.service.system.login;
 
 import com.wqzhang.model.Page;
 import com.wqzhang.model.PageData;
