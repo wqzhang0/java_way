@@ -17,19 +17,27 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
+
     <!-- 启用MVC注解 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
     <!-- 指定Sping组件扫描的基本包路径 -->
-    <context:component-scan base-package="com.wqzhang.*.*" >
+    <context:component-scan base-package="com.wqzhang.*.*">
         <!-- 这里只扫描Controller，不可重复加载Service -->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
     <!-- JSP视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp" />
-        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/jsp"/>
+        <property name="suffix" value=".jsp"/>
         <!--  定义其解析视图的order顺序为1 -->
-        <property name="order" value="1" />
+        <property name="order" value="1"/>
     </bean>
 </beans>

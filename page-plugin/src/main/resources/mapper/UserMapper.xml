@@ -4,25 +4,25 @@
 
     <!-- 查询出表头的时间段 -->
     <select id="getUser" parameterType="pd" resultType="pd">
-		 select id,name from student where id = #{STUDENT_ID,jdbcType=INTEGER}
-	</select>
+        select id,name from student where id = #{STUDENT_ID,jdbcType=INTEGER}
+    </select>
 
     <insert id="insertUser" parameterType="pd">
-		insert into student
-			(name)
-			VALUE (
-				#{NAME}
-			)
-	</insert>
+        insert into student
+        (name)
+        VALUE (
+        #{NAME}
+        )
+    </insert>
 
     <select id="listAllUser" resultType="pd">
-		select id ID ,name NAME from student
-	</select>
+        select id ID ,name NAME from student
+    </select>
 
 
-	<select id="userlistPage" resultType="pd" parameterType="page">
-		select id ID ,name NAME from student
-	</select>
+    <select id="userlistPage" resultType="pd" parameterType="page">
+        select id ID ,name NAME from student
+    </select>
 
 
 </mapper>

@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * Created by wqzhang on 2017/9/12.
+ *
+ * @author wqzhang
  */
 @Service
 @RequestMapping("loginService")
@@ -19,6 +21,7 @@ public class LoginService implements LoginManager {
     @Resource(name = "userService")
     private UserManager userService;
 
+    @Override
     public Object checkLogin(Page page) {
 
         PageData userInfo = userService.getUser(page.getPd());
@@ -26,6 +29,7 @@ public class LoginService implements LoginManager {
         return userInfo;
     }
 
+    @Override
     public List<PageData> listAllUser() {
         return userService.listAllUser();
     }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- Realm实现 -->
+    <bean id="userRealm" class="com.wqzhang.shiro.UserRealm"/>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+        <!--<property name="realms">-->
+        <!--<list>-->
+        <!--<ref bean="userRealm"/>-->
+        <!--</list>-->
+        <!--</property>-->
+    </bean>
+
+    <!-- Shiro Filter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/loginController/login.do"/>
+        <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/loginController/tologin.do"/>
+        <!--  filterChainDefinitions 属性，
+        anon 表示匿名访问（不需要认证与授权），authc 表示需要认证，
+        perms[SECURITY_ACCOUNT_VIEW] 表示用户需要提供值为“SECURITY_ACCOUNT_VIEW”Permission 信息。
+        由此可见，连接地址配置为 authc 或 perms[XXX] 表示为受保护资源。-->
+        <property name="filterChainDefinitions">
+            <value>
+                /= anon
+                /unit/** = anon
+                /index.html = authc
+                /login.do = anon
+                /toLogin.do = anon
+                /logout.do = anon
+                /**=authc
+
+            </value>
+        </property>
+    </bean>
+
+
+ <!--   &lt;!&ndash; 开启Shiro注解的Spring配置方式的beans。在lifecycleBeanPostProcessor之后运行 &ndash;&gt;
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>-->
+
+    <bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+    <!-- shiro为集成spring -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">/login</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

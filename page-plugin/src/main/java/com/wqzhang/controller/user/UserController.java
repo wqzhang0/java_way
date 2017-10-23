@@ -1,26 +1,29 @@
-package com.wqzhang.controller.User;
+package com.wqzhang.controller.user;
 
 import com.wqzhang.controller.BaseController;
 import com.wqzhang.model.Page;
 import com.wqzhang.model.PageData;
 import com.wqzhang.user.service.UserManager;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by wqzhang on 2017/9/20.
+ *
+ * @author wqzhang
  */
 @Controller
-@RequestMapping("/userListController")
-public class UserListController extends BaseController {
+@RequestMapping("/userController")
+public class UserController extends BaseController {
 
     @Resource(name = "userService")
     private UserManager userService;
 
+    @RequiresPermissions("sys:user:list")
     @RequestMapping("/list")
     public ModelAndView list(Page page) {
         PageData resultPageData = userService.userlistPage(page);

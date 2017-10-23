@@ -15,6 +15,8 @@ import java.util.List;
 /**
  * Created by wqzhang on 2017/9/18.
  * demo页面跳转页
+ *
+ * @author wqzhang
  */
 @Controller
 @RequestMapping("/demoShowController")
@@ -30,7 +32,7 @@ public class DemoShowController extends BaseController {
         ModelAndView mv = new ModelAndView();
         List<PageData> users = loginService.listAllUser();
         //热部署 测试
-        users.get(0).put("NAME","HOT boot success");
+        users.get(0).put("NAME", "HOT boot success");
         mv.addObject("users", users);
         mv.setViewName("/test/datatableDemo");
         return mv;

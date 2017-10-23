@@ -1,6 +1,6 @@
 package com.wqzhang.tools;
 
-import com.wqzhang.intefter.CreateXML;
+import com.wqzhang.intefter.CreateXml;
 import com.wqzhang.intefter.ParseXML;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by wqzhang on 2017/8/29.
  */
-public class DOM4JTools implements CreateXML, ParseXML {
+public class DOM4JTools implements CreateXml, ParseXML {
 
     private static DOM4JTools dom4JTools;
 
@@ -27,6 +27,8 @@ public class DOM4JTools implements CreateXML, ParseXML {
     private void DOM4JTools() {
     }
 
+
+    @Override
     public void create() throws Exception {
         Document document = DocumentHelper.createDocument();
 //        document.setXMLEncoding("GBK");
@@ -69,6 +71,7 @@ public class DOM4JTools implements CreateXML, ParseXML {
         xmlWriter.close();
     }
 
+    @Override
     public void parse(String filePath) {
         //获取文件流
         SAXReader saxReader = new SAXReader();

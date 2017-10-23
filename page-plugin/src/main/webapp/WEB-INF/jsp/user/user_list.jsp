@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
-  User: wqzhang
+  user: wqzhang
   Date: 2017/9/20
   Time: 14:57
   To change this template use File | Settings | File Templates.
@@ -28,10 +28,10 @@
                     currentPageIndex = currentPageIndex + 1;
                 }
             } else {
-                if(targetPage<1){
+                if (targetPage < 1) {
                     currentPageIndex = 0;
                 }
-                if(targetPage>totalPage + 1){
+                if (targetPage > totalPage + 1) {
                     currentPageIndex = 0;
                 }
             }

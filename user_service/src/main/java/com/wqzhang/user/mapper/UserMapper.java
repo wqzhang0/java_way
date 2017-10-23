@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wqzhang on 2017/9/14.
@@ -17,10 +18,14 @@ public interface UserMapper {
 
     void insertUser(PageData pd);
 
-
     PageData getUser(PageData pd);
 
     List<PageData> listAllUser();
 
     List<PageData> userlistPage(Page page);
+
+    PageData getUserByAccount(String acccount);
+
+    List<PageData> listPermsByUserId(Long userId);
+
 }

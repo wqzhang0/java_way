@@ -1,6 +1,6 @@
 package com.wqzhang.tools;
 
-import com.wqzhang.intefter.CreateXML;
+import com.wqzhang.intefter.CreateXml;
 import com.wqzhang.util.FileTool;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +17,7 @@ import java.io.StringWriter;
 /**
  * Created by wqzhang on 2017/8/29.
  */
-public class JDOMTools implements CreateXML {
+public class JDOMTools implements CreateXml {
 
     private static JDOMTools jdomTools;
 
@@ -32,15 +32,16 @@ public class JDOMTools implements CreateXML {
 
     }
 
+    @Override
     public void create() throws Exception {
         DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docbuilder = dbfactory.newDocumentBuilder();
-        //´´½¨ Documet
+        //ï¿½ï¿½ï¿½ï¿½ Documet
         Document document = docbuilder.newDocument();
-        //Ôö¼ÓµÚÒ»¸ö½Úµã
+        //ï¿½ï¿½ï¿½Óµï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½
         Element root = document.createElement("Students");
         document.appendChild(root);
-        //´´½¨×Ó½Úµã
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµï¿½
         Element studentA = document.createElement("studentA");
         Element studentB = document.createElement("studentB");
         Element studentC = document.createElement("studentC");
@@ -48,7 +49,7 @@ public class JDOMTools implements CreateXML {
         Element studentE = document.createElement("studentE");
 
         studentA.setAttribute("Name", "NAME_A");
-        studentA.setTextContent("ÎÒÊÇA  ÎÒºÜ×ÔÐÅ");
+        studentA.setTextContent("ï¿½ï¿½ï¿½ï¿½A  ï¿½Òºï¿½ï¿½ï¿½ï¿½ï¿½");
         studentB.setAttribute("Name", "NAME_B");
         studentB.setNodeValue("NodeValue");
         studentB.appendChild(document.createTextNode("textNode"));
@@ -67,11 +68,11 @@ public class JDOMTools implements CreateXML {
 
         TransformerFactory tfactory = TransformerFactory.newInstance();
         Transformer transformer = tfactory.newTransformer();
-        //ÉèÖÃ»»ÐÐ
+        //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        //ÉèÖÃ¸ñÊ½ 4¸ö¿Õ¸ñ£¨²Â²â£©
+        //ï¿½ï¿½ï¿½Ã¸ï¿½Ê½ 4ï¿½ï¿½ï¿½Õ¸ñ£¨²Â²â£©
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        // ÒòÎª¸öÈËÏîÄ¿Ê¹ÓÃGBK±àÂë£¬ÕâÀïÊ¹ÓÃGBK¸ñÊ½Êä³ö  ·ñÔòÂÒÂë
+        // ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ê¹ï¿½ï¿½GBKï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½GBKï¿½ï¿½Ê½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         transformer.setOutputProperty("encoding", "GBK");
 
         transformer.transform(new DOMSource(root), streamResult);

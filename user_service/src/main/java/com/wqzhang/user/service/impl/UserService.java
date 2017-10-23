@@ -7,7 +7,9 @@ import com.wqzhang.user.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wqzhang on 2017/9/14.
@@ -56,6 +58,23 @@ public class UserService implements UserManager {
         pd.put("list", users);
         pd.put("page", page);
         return pd;
+    }
+
+    @Override
+    public PageData getUserByAccount(String acccount) {
+        PageData pd = userMapper.getUserByAccount(acccount);
+        return pd;
+    }
+
+    @Override
+    public Set<String> listPerms(Long userId) {
+        List<PageData> perms = userMapper.listPermsByUserId(userId);
+
+        Set<String> setPerms = new HashSet<>();
+        for (PageData pd : perms) {
+            setPerms.add(pd.getString("PERM"));
+        }
+        return setPerms;
     }
 
 

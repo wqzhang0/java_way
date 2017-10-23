@@ -2,6 +2,8 @@ package com.wqzhang.controller;
 
 import com.wqzhang.model.Page;
 import com.wqzhang.model.PageData;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by wqzhang on 2017/8/15.
+ *
+ * @author wqzhang
  */
 public class BaseController {
     protected Page getPage() {
@@ -35,5 +39,10 @@ public class BaseController {
         return request;
     }
 
-
+//    @RequestMapping("/")
+//    public ModelAndView home() throws Exception {
+//        ModelAndView mv = this.getModelAndViwe();
+//        mv.setViewName("index");
+//        return mv;
+//    }
 }

@@ -4,11 +4,11 @@
 
     <!-- 查询出表头的时间段 -->
     <select id="getUser" parameterType="pd" resultType="pd">
-		 select id,name from student where id = #{STUDENT_ID,jdbcType=INTEGER}
+		 select id,name from sys_user where id = #{STUDENT_ID,jdbcType=INTEGER}
 	</select>
 
     <insert id="insertUser" parameterType="pd">
-		insert into student
+		insert into sys_user
 			(name)
 			VALUE (
 				#{NAME}
@@ -16,12 +16,28 @@
 	</insert>
 
     <select id="listAllUser" resultType="pd">
-		select id ID ,name NAME from student
+		select id ID ,name NAME from sys_user
 	</select>
 
 
-	<select id="userlistPage" resultType="pd" parameterType="page">
-		select id ID ,name NAME from student
+    <select id="userlistPage" resultType="pd" parameterType="page">
+		select id ID ,name NAME from sys_user
+	</select>
+
+
+    <select id="getUserByAccount" resultType="pd" parameterType="String">
+		select * from sys_user where account = #{_parameter}
+	</select>
+
+
+    <select id="listPermsByUserId" resultType="pd">
+		SELECT DISTINCT
+-- 		 t2.name ROLE_NAME ,t1.name USER_NAME,t4.name MENU_NAME ,
+		 t4.perm PERM
+		from sys_user t1 LEFT JOIN sys_role t2 on t1.role_id = t2.id
+		LEFT JOIN sys_role_menu t3 on t2.id = t3.role_id
+		left join sys_menu t4 on t3.menu_id = t4.id
+		where t4.name is not null and t1.id = #{_parameter} and PERM is not null ;
 	</select>
 
 

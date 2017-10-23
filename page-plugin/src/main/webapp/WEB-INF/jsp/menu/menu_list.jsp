@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: wqzhang
+  user: wqzhang
   Date: 2017/9/27
   Time: 14:33
   To change this template use File | Settings | File Templates.
@@ -88,13 +88,6 @@
         }
 
 
-        function getTree2() {
-            <%--var tmpData = "${menuList}";--%>
-            <%--//            alert(tmpData);--%>
-
-            <%--return tmpData;--%>
-        }
-
         //        参数名称	参数类型	默认值	描述
         //        data	Array of Objects	无	列表树上显示的数据。
         //        backColor	String	所有合法的颜色值，Default: inherits from Bootstrap.css。	设置所有列表树节点的背景颜色。
@@ -146,22 +139,22 @@
                 onNodeChecked: function (event, node) {
                     var childrens = node.nodes; //是否有子节点
                     if (childrens) {//有后代节点
-                        checkedChild(childrens);//选中所有的后代节点
+                        checkedChild(childrens, "tree");//选中所有的后代节点
                         $('#tree').treeview('expandNode', [node.nodeId, {levels: 4, silent: true}]);
                     }
                     //选中展开
                     var parentNode = $('#tree').treeview('getParent', node); //父节点
                     if (parentNode.state) {//选中一个节点其父节点以上均被选中
-                        checkedParent(parentNode);
+                        checkedParent(parentNode, "tree");
                     }
                 },
                 onNodeUnchecked: function (event, node) {
                     var childrens = node.nodes;
                     if (childrens) {//父节点被取消选中子节点默认取消
-                        delChildrens(childrens);
+                        delChildrens(childrens, "tree");
                     } //兄弟节点都被取消则取消父节点
                     var siblingsNode = $('#tree').treeview('getSiblings', node);
-                    delSiblings(siblingsNode);
+                    delSiblings(siblingsNode, "tree");
                 },
                 onNodeUnselected: function (event, data) {
 //                    alert("onNodeUnselected");
@@ -220,24 +213,25 @@
                 },
 
                 onNodeChecked: function (event, node) {
+
                     var childrens = node.nodes; //是否有子节点
                     if (childrens) {//有后代节点
-                        checkedChild(childrens);//选中所有的后代节点
-                        $('#tree').treeview('expandNode', [node.nodeId, {levels: 4, silent: true}]);
+                        checkedChild(childrens, "tree2");//选中所有的后代节点
+                        $('#tree2').treeview('expandNode', [node.nodeId, {levels: 4, silent: true}]);
                     }
                     //选中展开
-                    var parentNode = $('#tree').treeview('getParent', node); //父节点
+                    var parentNode = $('#tree2').treeview('getParent', node); //父节点
                     if (parentNode.state) {//选中一个节点其父节点以上均被选中
-                        checkedParent(parentNode);
+                        checkedParent(parentNode, "tree2");
                     }
                 },
                 onNodeUnchecked: function (event, node) {
                     var childrens = node.nodes;
                     if (childrens) {//父节点被取消选中子节点默认取消
-                        delChildrens(childrens);
+                        delChildrens(childrens, "tree2");
                     } //兄弟节点都被取消则取消父节点
-                    var siblingsNode = $('#tree').treeview('getSiblings', node);
-                    delSiblings(siblingsNode);
+                    var siblingsNode = $('#tree2').treeview('getSiblings', node);
+                    delSiblings(siblingsNode, "tree2");
                 },
                 onNodeUnselected: function (event, data) {
                 },
@@ -261,31 +255,31 @@
             return false;
         }
 
-        function checkedChild(childrens) {
+        function checkedChild(childrens, treeId) {
             childrens.forEach(function (el) {
-                $('#tree').treeview('checkNode', [el.nodeId, {silent: true}]);
+                $('#' + treeId).treeview('checkNode', [el.nodeId, {silent: true}]);
                 if (el.nodes) {
-                    checkedChild(el.nodes)
+                    checkedChild(el.nodes, treeId)
                 }
             })
         }
-        function checkedParent(parentNode) {
+        function checkedParent(parentNode, treeId) {
             parentNode.state.checked = true;
             var selfNode = parentNode;
-            var parentNode = $('#tree').treeview('getParent', selfNode); //父节点
+            var parentNode = $('#' + treeId).treeview('getParent', selfNode); //父节点
             if (parentNode.state) {
-                checkedParent(parentNode)
+                checkedParent(parentNode, treeId)
             }
         }
-        function delChildrens(childrens) {
+        function delChildrens(childrens, treeId) {
             childrens.forEach(function (el) {
-                $('#tree').treeview('uncheckNode', [el.nodeId, {silent: true}]);
+                $('#' + treeId).treeview('uncheckNode', [el.nodeId, {silent: true}]);
                 if (el.nodes) {
-                    delChildrens(el.nodes)
+                    delChildrens(el.nodes, treeId)
                 }
             })
         }
-        function delSiblings(siblingsNode) {
+        function delSiblings(siblingsNode, treeId) {
             var isAllChecked = false;
             siblingsNode.forEach(function (el) {
                 if (el.state.checked) {
@@ -293,13 +287,73 @@
                 }
             })
             if (!isAllChecked) {
-                var parentNode = $('#tree').treeview('getParent', siblingsNode); //父节点
+                var parentNode = $('#' + treeId).treeview('getParent', siblingsNode); //父节点
                 if (parentNode.state) {
                     parentNode.state.checked = false;
-                    var siblingsNode = $('#tree').treeview('getSiblings', parentNode);
-                    delSiblings(siblingsNode);
+                    var siblingsNode = $('#' + treeId).treeview('getSiblings', parentNode);
+                    delSiblings(siblingsNode, treeId);
                 }
             }
+        }
+
+
+        var ids = "";
+        /**
+         * 获取已经选择的id 转换成字符串传递
+         * @param id
+         */
+        function save(id) {
+            var fNode = $('#' + id).treeview('getNode', $("#FIRST_NODE_ID").val());
+            var menuNodes = $('#' + id).treeview('getSiblings', fNode);
+
+//            alert(typeof (menuNodes));
+//            menuNodes.insertAfter(fNode);
+//            debugger;
+
+            if (fNode.state.checked) {
+                ids = ids + fNode.id + ",";
+
+                if (fNode.nodes) {
+                    getChildCheckId(fNode);
+                }
+            }
+
+            menuNodes.forEach(function (menuNode) {
+                if (menuNode.state.checked) {
+//                    alert(menuNode.id);
+                    ids = ids + menuNode.id + ",";
+                    if (menuNode.nodes) {
+                        getChildCheckId(menuNode);
+                    }
+                }
+            });
+            ids = ids.substring(0, ids.length - 1);
+            alert(ids);
+            ids = "";
+
+
+        }
+
+
+        function getChildCheckId(parentNode) {
+//            debugger;
+
+            if (parentNode.nodes) {
+                parentNode.nodes.forEach(function (child) {
+                    if (child.state.checked) {
+
+                        ids = ids + child.id + ",";
+                        //查看此节点是否被选择  如果被选择 向下递归
+//                        alert(child.id);
+//                }
+//                $('#' + treeId).treeview('checkNode', [el.nodeId, {silent: true}]);
+                        if (child.nodes) {
+                            getChildCheckId(child);
+                        }
+                    }
+                });
+            }
+
         }
 
     </script>
@@ -320,6 +374,14 @@
                 <div id="tree2" style="width:300px;padding-left: 20px;padding-top: 10px;float:left;"></div>
             </td>
 
+        </tr>
+        <tr>
+            <input id="FIRST_NODE_ID" type="hidden" value="0"/>
+            <%--<input id="FIRST_NODE_ID" type="hidden" value="${firstTreeId}"/>--%>
+            <td>根节点id ${firstTreeId}</td>
+            <td>
+                <button onclick="save('tree2')">保存</button>
+            </td>
         </tr>
     </table>
 </center>

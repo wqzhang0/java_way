@@ -15,6 +15,6 @@
             <property name="pageNoCountSqlId" value=".*listNoCountPage.*"/>
         </plugin>
     </plugins>
-    
+
 
 </configuration>
