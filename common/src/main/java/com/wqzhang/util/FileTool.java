@@ -1,8 +1,8 @@
 package com.wqzhang.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.sun.corba.se.spi.orbutil.fsm.Input;
+
+import java.io.*;
 
 /**
  * Created by wqzhang on 2017/8/24.
@@ -34,5 +34,16 @@ public class FileTool {
         StringBuffer sb = new StringBuffer();
         fileOutputStream.write(content.getBytes());
         fileOutputStream.close();
+    }
+
+    /**
+     * 获得文件的数据流
+     *
+     * @param fileName 路径
+     * @throws IOException
+     */
+    public static InputStream getInputStream(String fileName) throws FileNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(new File(fileName));
+        return fileInputStream;
     }
 }
