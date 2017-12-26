@@ -1,4 +1,4 @@
-package com.wqzhang.export;
+package com.wqzhang.export.util;
 
 import com.wqzhang.model.PageData;
 
@@ -6,6 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @ClassName ExportDataModel
+ * @author wqzhang
+ * @Description 导出模板类 支持类型
+ *  int 型
+ *  string 型
+ *  double 型
+ *  特殊类型（例如状态，类型 等）
+ *  时间 年月日 时分秒
+ *  时间 年月日 时分
+ *  时间 年月日
+ * @Date 2017/12/26 14:22
+ * @version 1.0.0
+ */
 public class ExportDataModel {
 
     /**

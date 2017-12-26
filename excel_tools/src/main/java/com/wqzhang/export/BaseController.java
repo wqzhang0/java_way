@@ -1,5 +1,7 @@
 package com.wqzhang.export;
 
+import com.wqzhang.export.util.ExportDataModel;
+import com.wqzhang.export.util.UniversalExcelView;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.util.Map;
  * @Description 导出通用类,应该为BaseController 所有的 conroller继承 BaseController  调用super.export(exportDataModel);
  * @Date 2017/12/26 14:03
  */
-public class BaseClass {
+public class BaseController {
 
     protected ModelAndView export(ExportDataModel exportDataModel) {
         ModelAndView mv = new ModelAndView();
