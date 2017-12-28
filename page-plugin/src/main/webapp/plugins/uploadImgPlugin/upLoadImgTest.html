@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <style>
+        table, table tr th, table tr td {
+            border: 1px solid #0094ff;
+        }
+
+    </style>
+</head>
+<body>
+
+<div style="background-color: red">
+
+    <!--<input type="hidden" class="wqImgUpLoad" id="imgPath1" name="imgPath1" value="1"/>-->
+    <!--<input type="hidden" class="wqImgUpLoad" showModel="ADAPTIVE" id="imgPath2" name="imgPath2" value="2"/>-->
+    <!--<input type="hidden" class="wqImgUpLoad" showModel="CUSTOMIZE" imgWidth="150px;" imgHeight="60px;" name="imgPath2"-->
+    <!--value="2"/>-->
+    <!--<input type="hidden" class="wqImgUpLoad" imgW="100px" id="imgPath3" name="imgPath3" value="3"/>-->
+
+
+    <!--
+    <in_uploadTypetype="file"  id="PICTURE_URL_FILE" value="${pd.PICTURE_URL}" onchange="changeImg(this,'CLASS_PHOTO')" style="position: absolute;opacity:0;top:0;height:100px; width: 100px;" multiple="multiple"/>
+    -->
+
+</div>
+
+<table style="border: 1px solid royalblue">
+
+    <tr>
+        <td>图片测试</td>
+        <td><input type="hidden" class="wqImgUpLoad" id="imgPath1" name="imgPath1" value="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514377060687&di=f0e9a9ca642cd3fae04ebb84b52cd315&imgtype=0&src=http%3A%2F%2Fimg2.ooopic.com%2F13%2F13%2F68%2F69bOOOPIC84_202.jpg"/>
+
+        </td>
+    </tr>
+    <tr>
+        <td>图片测试</td>
+        <td><input type="hidden" class="wqImgUpLoad"  defaultPath="images/default.jpg" showModel="CUSTOMIZE" imgWidth="120px;" imgHeight="77px;" id="testInput"   id="imgPath2" name="imgPath2" />
+        </td>
+    </tr>
+    <tr>
+        <td>图片测试</td>
+        <td>
+            <input type="hidden" class="wqImgUpLoad" showModel="ADAPTIVE"
+                   name="imgPath2" />
+        </td>
+    </tr>
+    <button id="testBtn">打印路径</button>
+    <button id="retBtn">重置</button>
+
+</table>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/uploadImgPlugin.js"></script>
+<link rel="stylesheet" type="text/css" href="css/uploadImgPlugin.css"/>
+<script type="text/javascript">
+    $("#testBtn").on("click",function () {
+        var val = $("#testInput").val();
+//         resetUpLoad();
+//        var uploadImgPlugin = new UploadImgPlugin();
+//        resetUploadPluginImg();
+        if(val == null || val ==''){
+            console.log("没有路径");
+        }else{
+            console.log(val);
+        }
+    });
+
+    $("#retBtn").on("click",function () {
+        resetUploadPluginImg();
+    });
+
+
+</script>
+</body>
+</html>
