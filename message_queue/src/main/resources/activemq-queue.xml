@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <context:component-scan base-package="com.wqzhang"/>
-
-    <!--<bean id="messageProducer" class="com.wqzhang.producer.MessageProducer"></bean>-->
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="queueConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
         <!-- ActiveMQ默认是61616端口 -->
         <property name="brokerURL" value="tcp://192.168.13.46:61616"/>
-        <!-- <property name="brokerURL" value="vm://normandy.notify" /> -->
         <property name="useAsyncSend" value="true"/>
-
-
     </bean>
 
 
     <!-- 点对点消息目的地 -->
     <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
         <!-- 名称可以随意命名 -->
-        <constructor-arg value="MY.queue"/>
+        <constructor-arg value="MY.localQueue"/>
     </bean>
 
 
     <!-- PTP jms模板 -->
     <bean id="queueJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory">
-            <!-- 也可以使用org.springframework.jms.connection.SingleConnectionFactory -->
             <bean class="org.springframework.jms.connection.CachingConnectionFactory">
                 <property name="targetConnectionFactory" ref="queueConnectionFactory"/>
             </bean>
@@ -44,52 +35,53 @@
     </bean>
 
 
-    <!-- 消息发送方 -->
-    <!-- <bean id="messageSender" class="com.zb.activemq.MessageSender"></bean> -->
-
-
     <!-- 消息转换器 -->
-    <bean id="activeMQMessageConverter" class="com.wqzhang.ActiveMessageConverter"/>
+    <bean id="activeMQMessageConverter" class="com.wqzhang.converter.ActiveMessageConverter"/>
 
 
     <!-- 消息消费者1 ， 实现了MessageListener接口 -->
-    <bean id="messageReceiver" class="com.wqzhang.receiver.QueueConsumerA">
-    </bean>
-    <!-- 消息消费者1 ， 实现了MessageListener接口 -->
-    <bean id="messageReceiverB" class="com.wqzhang.receiver.QueueConsumerB"/>
+    <bean id="messageReceiver" class="com.wqzhang.receiver.QueueConsumerA"/>
     <!-- 消息消费者2 ， 实现了MessageListener接口 -->
-    <!--<bean id="messageReceiver2" class="com.zb.activemq.queue.QueueConsumer2"></bean>-->
+    <bean id="messageReceiverB" class="com.wqzhang.receiver.QueueConsumerB"/>
+    <bean id="queueReceiverC" class="com.wqzhang.receiver.QueueConsumerC"/>
 
-    <!--&lt;!&ndash; 消息消费者3 &ndash;&gt;-->
-    <!--<bean id="queueReceiver3" class="com.zb.activemq.queue.QueueConsumer3"/>-->
-
-    <!-- 消息消费者3 ，与消费者1、2有些不同，这里是通过配置，指定消息转换器的功能-->
-    <!--<bean id="messageReceiver3" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">-->
-    <!--&lt;!&ndash; 指定消息处理器 &ndash;&gt;-->
-    <!--<constructor-arg ref="queueReceiver3"/>-->
-    <!--&lt;!&ndash; 指定queueReceiver3消费者的默认执行方法 &ndash;&gt;-->
-    <!--<property name="defaultListenerMethod" value="receive"/>-->
-    <!--&lt;!&ndash; 消息转换器 &ndash;&gt;-->
-    <!--<property name="messageConverter" ref="activeMQMessageConverter"/>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; 消息监听容器 1 &ndash;&gt;-->
-    <bean id="listenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="queueConnectionFactory"/>
-        <property name="destination" ref="queueDestination"/>
-        <!-- 指定消息消费者 -->
-        <property name="messageListener" ref="messageReceiverB"/>
-        <property name="concurrentConsumers" value="5"/>
+    <!--消息消费者3 ，与消费者1、2有些不同，这里是通过配置，指定消息转换器的功能-->
+    <bean id="messageReceiver3" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+        <!--配置监听者 对象-->
+        <constructor-arg ref="queueReceiverC"/>
+        <!--配置装换后 调用的方法-->
+        <property name="defaultListenerMethod" value="reciver"/>
+        <!--转换方法-->
+        <property name="messageConverter" ref="activeMessageConverter"/>
     </bean>
 
-    <!--&lt;!&ndash; 消息监听容器 1 &ndash;&gt;-->
+    <!--消息监听容器 1 -->
     <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="queueConnectionFactory"/>
         <property name="destination" ref="queueDestination"/>
         <!-- 指定消息消费者 -->
         <property name="messageListener" ref="messageReceiver"/>
+        <!--消费者数量-->
         <property name="concurrentConsumers" value="5"/>
     </bean>
 
+    <!-- 消息监听容器 1 -->
+    <bean id="listenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="queueConnectionFactory"/>
+        <property name="destination" ref="queueDestination"/>
+        <!-- 指定消息消费者 -->
+        <property name="messageListener" ref="messageReceiverB"/>
+        <!--消费者数量-->
+        <property name="concurrentConsumers" value="5"/>
+    </bean>
 
+    <!--&lt;!&ndash; 消息监听容器 1 &ndash;&gt;-->
+    <bean id="listenerContainerC" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="queueConnectionFactory"/>
+        <property name="destination" ref="queueDestination"/>
+        <!-- 指定消息消费者 -->
+        <property name="messageListener" ref="messageReceiver3"/>
+        <!--消费者数量-->
+        <property name="concurrentConsumers" value="5"/>
+    </bean>
 </beans>

@@ -1,6 +1,6 @@
 package com.wqzhang.topic;
 
-import com.wqzhang.PersonInfo;
+import com.wqzhang.bean.PersonInfo;
 
 import javax.jms.JMSException;
 

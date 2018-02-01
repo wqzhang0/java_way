@@ -1,6 +1,6 @@
 package com.wqzhang.producer;
 
-import com.wqzhang.PersonInfo;
+import com.wqzhang.bean.PersonInfo;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 

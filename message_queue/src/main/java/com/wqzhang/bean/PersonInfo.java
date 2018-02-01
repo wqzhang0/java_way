@@ -1,4 +1,4 @@
-package com.wqzhang;
+package com.wqzhang.bean;
 
 import java.io.Serializable;
 

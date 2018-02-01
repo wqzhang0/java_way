@@ -1,7 +1,7 @@
 //package com.wqzhang;
 //
+//import com.wqzhang.bean.PersonInfo;
 //import com.wqzhang.producer.MessageProducer;
-//import org.springframework.boot.SpringApplication;
 //import org.springframework.context.ApplicationContext;
 //import org.springframework.context.support.ClassPathXmlApplicationContext;
 //
@@ -14,7 +14,7 @@
 // */
 //public class main {
 //    public static void main(String[] args) {
-//        ApplicationContext cxt = new ClassPathXmlApplicationContext("classpath:queueApplication.xml");
+//        ApplicationContext cxt = new ClassPathXmlApplicationContext("classpath:activemq-queue.xml");
 //        MessageProducer messageProducer = (MessageProducer) cxt.getBean("messageProducer");
 //        for (int i = 0; i < 100; i++) {
 //            PersonInfo personInfo = new PersonInfo();

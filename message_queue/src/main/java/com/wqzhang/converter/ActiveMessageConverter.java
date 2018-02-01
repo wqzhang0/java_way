@@ -1,6 +1,7 @@
-package com.wqzhang;
+package com.wqzhang.converter;
 
 
+import com.wqzhang.bean.PersonInfo;
 import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
@@ -44,6 +45,7 @@ public class ActiveMessageConverter implements MessageConverter {
 
                     PersonInfo personInfo = (PersonInfo) activeMQObjectMessage.getObject();
                     System.out.println(personInfo.toString());
+                    return personInfo;
                 }
             }
         }

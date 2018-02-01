@@ -1,6 +1,6 @@
 package com.wqzhang.receiver;
 
-import com.wqzhang.PersonInfo;
+import com.wqzhang.bean.PersonInfo;
 import org.apache.activemq.command.ActiveMQObjectMessage;
 
 import javax.jms.JMSException;
