@@ -3,12 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="queueConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
-        <!-- ActiveMQ默认是61616端口 -->
-        <property name="brokerURL" value="tcp://192.168.13.46:61616"/>
-        <property name="useAsyncSend" value="true"/>
-    </bean>
-
 
     <!-- 点对点消息目的地 -->
     <bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
@@ -21,7 +15,7 @@
     <bean id="queueJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory">
             <bean class="org.springframework.jms.connection.CachingConnectionFactory">
-                <property name="targetConnectionFactory" ref="queueConnectionFactory"/>
+                <property name="targetConnectionFactory" ref="connectionFactory"/>
             </bean>
         </property>
         <property name="defaultDestination" ref="queueDestination"/>
@@ -35,20 +29,16 @@
     </bean>
 
 
-    <!-- 消息转换器 -->
-    <bean id="activeMQMessageConverter" class="com.wqzhang.converter.ActiveMessageConverter"/>
-
-
     <!-- 消息消费者1 ， 实现了MessageListener接口 -->
-    <bean id="messageReceiver" class="com.wqzhang.receiver.QueueConsumerA"/>
+    <bean id="queueConsumerA" class="com.wqzhang.receiver.QueueConsumerA"/>
     <!-- 消息消费者2 ， 实现了MessageListener接口 -->
-    <bean id="messageReceiverB" class="com.wqzhang.receiver.QueueConsumerB"/>
-    <bean id="queueReceiverC" class="com.wqzhang.receiver.QueueConsumerC"/>
+    <bean id="queueConsumerB" class="com.wqzhang.receiver.QueueConsumerB"/>
+    <bean id="queueConsumerC" class="com.wqzhang.receiver.QueueConsumerC"/>
 
     <!--消息消费者3 ，与消费者1、2有些不同，这里是通过配置，指定消息转换器的功能-->
-    <bean id="messageReceiver3" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+    <bean id="queueListenerC" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
         <!--配置监听者 对象-->
-        <constructor-arg ref="queueReceiverC"/>
+        <constructor-arg ref="queueConsumerC"/>
         <!--配置装换后 调用的方法-->
         <property name="defaultListenerMethod" value="reciver"/>
         <!--转换方法-->
@@ -56,31 +46,31 @@
     </bean>
 
     <!--消息监听容器 1 -->
-    <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="queueConnectionFactory"/>
+    <bean id="listenerContainerA" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="queueDestination"/>
         <!-- 指定消息消费者 -->
-        <property name="messageListener" ref="messageReceiver"/>
+        <property name="messageListener" ref="queueConsumerA"/>
         <!--消费者数量-->
         <property name="concurrentConsumers" value="5"/>
     </bean>
 
     <!-- 消息监听容器 1 -->
     <bean id="listenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="queueConnectionFactory"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="queueDestination"/>
         <!-- 指定消息消费者 -->
-        <property name="messageListener" ref="messageReceiverB"/>
+        <property name="messageListener" ref="queueConsumerB"/>
         <!--消费者数量-->
         <property name="concurrentConsumers" value="5"/>
     </bean>
 
     <!--&lt;!&ndash; 消息监听容器 1 &ndash;&gt;-->
     <bean id="listenerContainerC" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="queueConnectionFactory"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
         <property name="destination" ref="queueDestination"/>
         <!-- 指定消息消费者 -->
-        <property name="messageListener" ref="messageReceiver3"/>
+        <property name="messageListener" ref="queueListenerC"/>
         <!--消费者数量-->
         <property name="concurrentConsumers" value="5"/>
     </bean>

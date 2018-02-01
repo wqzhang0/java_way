@@ -3,5 +3,66 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--usb-pub-->
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="MY.topic"/>
+    </bean>
 
+    <bean id="topicJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory">
+            <!-- 也可以使用org.springframework.jms.connection.SingleConnectionFactory -->
+            <bean class="org.springframework.jms.connection.CachingConnectionFactory">
+                <property name="targetConnectionFactory" ref="connectionFactory"/>
+            </bean>
+        </property>  <!-- 默认的消息目的地 -->
+        <property name="defaultDestination" ref="topicDestination"/>
+    </bean>
+
+
+    <!--配置监听者-->
+    <bean id="topicConsumerA" class="com.wqzhang.receiver.TopicConsumerA"/>
+    <bean id="topicConsumerB" class="com.wqzhang.receiver.TopicConsumerB"/>
+    <bean id="topicConsumerC" class="com.wqzhang.receiver.TopicConsumerC"/>
+
+    <!--配置监听适配器-->
+    <!--配置监听 start-->
+
+    <bean id="topicListenerA" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+        <property name="messageConverter" ref="activeMQMessageConverter"/>
+        <constructor-arg ref="topicConsumerA"/>
+        <property name="defaultListenerMethod" value="reciver"/>
+    </bean>
+
+    <bean id="topicListenerB" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+        <constructor-arg ref="topicConsumerB"/>
+        <property name="messageConverter" ref="activeMQMessageConverter"/>
+        <property name="defaultListenerMethod" value="reciver"/>
+    </bean>
+
+    <bean id="topicListenerC" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+        <constructor-arg ref="topicConsumerC"/>
+        <property name="messageConverter" ref="activeMQMessageConverter"/>
+        <property name="defaultListenerMethod" value="reciver"/>
+    </bean>
+
+    <!--配置监听 end-->
+
+    <!--配置监听容器-->
+    <bean id="topicListenerContainerA" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="topicDestination"/>
+        <property name="messageListener" ref="topicListenerA"/>
+    </bean>
+    <!--配置监听容器-->
+    <bean id="topicListenerContainerB" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="topicDestination"/>
+        <property name="messageListener" ref="topicListenerB"/>
+    </bean>
+    <!--配置监听容器-->
+    <bean id="topicListenerContainerC" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="topicDestination"/>
+        <property name="messageListener" ref="topicListenerC"/>
+    </bean>
 </beans>

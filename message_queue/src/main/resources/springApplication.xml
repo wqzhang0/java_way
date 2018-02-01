@@ -5,6 +5,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.wqzhang"/>
+
+
+    <bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <!-- ActiveMQ默认是61616端口 -->
+        <property name="brokerURL" value="tcp://192.168.13.46:61616"/>
+        <property name="useAsyncSend" value="true"/>
+    </bean>
+
+
+    <!-- 消息转换器 -->
+    <bean id="activeMQMessageConverter" class="com.wqzhang.converter.ActiveMessageConverter"/>
+
     <import resource="classpath:activemq-queue.xml"/>
     <import resource="classpath:activemq-topic.xml"/>
 

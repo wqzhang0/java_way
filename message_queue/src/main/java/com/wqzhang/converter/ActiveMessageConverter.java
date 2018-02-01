@@ -23,7 +23,7 @@ import javax.jms.Session;
 public class ActiveMessageConverter implements MessageConverter {
     @Override
     public Message toMessage(Object o, Session session) throws JMSException, MessageConversionException {
-        System.out.println("ActiveMessageConverter  toMessage");
+//        System.out.println("ActiveMessageConverter  toMessage");
         if (o instanceof PersonInfo) {
             ActiveMQObjectMessage objectMessage = (ActiveMQObjectMessage) session.createObjectMessage();
             objectMessage.setObject((PersonInfo) o);
@@ -36,7 +36,7 @@ public class ActiveMessageConverter implements MessageConverter {
 
     @Override
     public Object fromMessage(Message message) throws JMSException, MessageConversionException {
-        System.out.println("ActiveMessageConverter fromMessage");
+//        System.out.println("ActiveMessageConverter fromMessage");
         if (message instanceof ObjectMessage) {
             ObjectMessage objectMessage = (ObjectMessage) message;
             if (objectMessage instanceof ActiveMQObjectMessage) {
@@ -44,7 +44,7 @@ public class ActiveMessageConverter implements MessageConverter {
                 if (activeMQObjectMessage.getObject() instanceof PersonInfo) {
 
                     PersonInfo personInfo = (PersonInfo) activeMQObjectMessage.getObject();
-                    System.out.println(personInfo.toString());
+//                    System.out.println(personInfo.toString());
                     return personInfo;
                 }
             }

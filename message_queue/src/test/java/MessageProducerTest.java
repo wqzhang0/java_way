@@ -1,5 +1,5 @@
 import com.wqzhang.bean.PersonInfo;
-import com.wqzhang.producer.MessageProducer;
+import com.wqzhang.producer.QueueMessageProducer;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class MessageProducerTest {
 
     @Resource(name = "messageProducer")
-    MessageProducer producer;
+    QueueMessageProducer producer;
 
     @Test
     public void sendMessageTest() {

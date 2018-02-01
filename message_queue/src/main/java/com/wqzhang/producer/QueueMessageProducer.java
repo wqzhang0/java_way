@@ -14,10 +14,10 @@ import javax.jms.Queue;
  * @Description ${todo}
  * @Date 2018/1/26 13:47
  */
-@Component(value = "messageProducer")
-public class MessageProducer {
+@Component(value = "queueMessageProducer")
+public class QueueMessageProducer {
 
-    public MessageProducer() {
+    public QueueMessageProducer() {
         System.out.println("MessageProducer init");
     }
 
