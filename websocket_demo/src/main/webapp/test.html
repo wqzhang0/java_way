@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 即时通讯 -->
+
+    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="websocketInstantMsg/ext4/resources/css/ext-all.css">
+    <link rel="stylesheet" type="text/css" href="websocketInstantMsg/css/websocket.css" />
+    <script type="text/javascript" src="websocketInstantMsg/ext4/ext-all-debug.js"></script>
+    <script type="text/javascript" src="websocketInstantMsg/websocket.js"></script>
+    <!-- 即时通讯 -->
+
+    <script type="text/javascript">
+        $(function(){
+            var user;
+            var websocketIp;
+            var wss;
+        });
+        function init(isWss){
+            user = $("#userName").val();
+            if($.trim(user) == ''){
+                user="default";
+            }
+            wss = isWss;
+            if(wss){
+                websocketIp = "your domain:443"
+            }else{
+                websocketIp = "127.0.0.1:443"
+            }
+            creatw();
+        }
+    </script>
+</head>
+<body>
+
+<div id="websocket_button"></div>
+    <input type="text" id="userName" />
+    <button title="即时通讯" style="border-left:0px;" onclick="init(false);">即时通讯-ws</button>
+    <button title="即时通讯" style="border-left:0px;" onclick="init(true);">即时通讯-wss</button>
+</body>
+</html>
