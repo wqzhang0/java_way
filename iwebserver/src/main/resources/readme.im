@@ -1,0 +1,3 @@
+简单的webserver接口 
+参考https://blog.csdn.net/nr000/article/details/78520163 
+python 调用 使用 https://github.com/cackharot/suds-py3 三方包
