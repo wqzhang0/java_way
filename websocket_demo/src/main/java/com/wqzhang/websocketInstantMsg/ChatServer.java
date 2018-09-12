@@ -46,15 +46,18 @@ public class ChatServer extends WebSocketServer {
         try {
             TrustManager[] trustAllCerts = new TrustManager[]
                     {new X509TrustManager() {
+                        @Override
                         public X509Certificate[] getAcceptedIssuers() {
                             return new X509Certificate[]
                                     {};
                         }
 
+                        @Override
                         public void checkClientTrusted(X509Certificate[] chain,
                                                        String authType) throws CertificateException {
                         }
 
+                        @Override
                         public void checkServerTrusted(X509Certificate[] chain,
                                                        String authType) throws CertificateException {
                         }
@@ -119,6 +122,7 @@ public class ChatServer extends WebSocketServer {
      */
     @Override
     public void onMessage(WebSocket conn, String message) {
+        System.out.println("收到消息啦");
         MessageBean messageBean = new MessageBean();
         messageBean.setType(MessageBean.Type.MEG);
         messageBean.setMsg(message);
