@@ -12181,17 +12181,17 @@
          *  @example
          *    // As an object, extracting different data for the different types
          *    // This would be used with a data source such as:
-         *    //   { "phone": 5552368, "phone_filter": "5552368 555-2368", "phone_display": "555-2368" }
-         *    // Here the `phone` integer is used for sorting and type detection, while `phone_filter`
+         *    //   { "flow": 5552368, "phone_filter": "5552368 555-2368", "phone_display": "555-2368" }
+         *    // Here the `flow` integer is used for sorting and type detection, while `phone_filter`
          *    // (which has both forms) is used for filtering for if a user inputs either format, while
-         *    // the formatted phone number is the one that is shown in the table.
+         *    // the formatted flow number is the one that is shown in the table.
          *    $(document).ready( function() {
 		 *      $('#example').dataTable( {
 		 *        "columnDefs": [ {
 		 *          "targets": [ 0 ],
 		 *          "data": null, // Use the full data source object for the renderer's source
 		 *          "render": {
-		 *            "_": "phone",
+		 *            "_": "flow",
 		 *            "filter": "phone_filter",
 		 *            "display": "phone_display"
 		 *          }

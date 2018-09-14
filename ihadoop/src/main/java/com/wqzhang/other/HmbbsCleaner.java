@@ -1,6 +1,4 @@
-package com.wqzhang;
-
-
+package com.wqzhang.other;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -43,7 +41,7 @@ public class HmbbsCleaner
         {
             fileSystem.delete(new Path(path2), true);
         }
-        Job job = Job.getInstance(conf, "HmbbsCleaner");
+        Job job = Job.getInstance(conf, "com.wqzhang.other.HmbbsCleaner");
         job.setJarByClass(HmbbsCleaner.class);//jar包
         //编写驱动
         FileInputFormat.setInputPaths(job, new Path(path1));

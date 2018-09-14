@@ -12,8 +12,122 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <version>2.9.1</version>
+            <version>2.4.0</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.hadoop</groupId>-->
+            <!--<artifactId>hadoop-common</artifactId>-->
+            <!--<version>2.6.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.hadoop</groupId>-->
+            <!--<artifactId>hadoop-core</artifactId>-->
+            <!--<version>1.2.1</version>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.hadoop</groupId>-->
+            <!--<artifactId>hadoop-hdfs</artifactId>-->
+            <!--<version>2.4.0</version>-->
+        <!--</dependency>-->
+
+
     </dependencies>
 
+
+
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--&lt;!&ndash;(start) for package jar with dependencies &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<version>3.0.0</version>-->
+                <!--<configuration>-->
+
+                    <!--&lt;!&ndash;<transformers>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.wqzhang.WordCountReducer</mainClass>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</transformer>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</transformers>&ndash;&gt;-->
+                    <!--&lt;!&ndash;&ndash;&gt;-->
+                    <!--<archive>-->
+                    <!--<manifest>-->
+                    <!--<addClasspath>true</addClasspath>-->
+                    <!--<mainClass>com.wqzhang.WordCountMapReduce </mainClass>-->
+                    <!--</manifest>-->
+                    <!--</archive>-->
+                    <!--<descriptorRefs>-->
+                    <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--</descriptorRefs>-->
+                <!--</configuration>-->
+                <!--&lt;!&ndash;<executions>&ndash;&gt;-->
+                <!--&lt;!&ndash;<execution>&ndash;&gt;-->
+                <!--&lt;!&ndash;<id>make-assembly</id> &lt;!&ndash; this is used for inheritance merges &ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<phase>package</phase> &lt;!&ndash; bind to the packaging phase &ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<goals>&ndash;&gt;-->
+                <!--&lt;!&ndash;<goal>single</goal>&ndash;&gt;-->
+                <!--&lt;!&ndash;</goals>&ndash;&gt;-->
+                <!--&lt;!&ndash;</execution>&ndash;&gt;-->
+                <!--&lt;!&ndash;</executions>&ndash;&gt;-->
+            <!--</plugin>-->
+            <!--&lt;!&ndash;(end) for package jar with dependencies &ndash;&gt;-->
+        <!--</plugins>-->
+    <!--</build>-->
+
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--&lt;!&ndash;(start) for package jar with dependencies &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<version>3.0.0</version>-->
+                <!--<configuration>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!--<mainClass>com.wqzhang.WordCountMapReduce</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                    <!--<descriptorRefs>-->
+                        <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+                    <!--</descriptorRefs>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>make-assembly</id> &lt;!&ndash; this is used for inheritance merges &ndash;&gt;-->
+                        <!--<phase>package</phase> &lt;!&ndash; bind to the packaging phase &ndash;&gt;-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <!--&lt;!&ndash;(end) for package jar with dependencies &ndash;&gt;-->
+        <!--</plugins>-->
+    <!--</build>-->
+<build>
+
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>1.2.1</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>com.wqzhang.WordCountMapReduce</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 </project>
