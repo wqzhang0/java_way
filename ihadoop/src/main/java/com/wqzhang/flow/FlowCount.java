@@ -48,6 +48,9 @@ public class FlowCount {
         Job job  = Job.getInstance(conf);
         job.setJarByClass(FlowCount.class);
 
+        job.setPartitionerClass(ProvincePartitioner.class);
+        job.setNumReduceTasks(5);
+
         job.setMapperClass(FlowCountMapper.class);
         job.setReducerClass(FlowCountReducer.class);
 
