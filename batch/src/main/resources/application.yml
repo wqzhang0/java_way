@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://101.132.150.15/script_killing_v4_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&characterSetResults=utf8&useSSL=false
+    username: root
+    password: Ewr$asd12$ss
+  batch:
+    initialize-schema: always
