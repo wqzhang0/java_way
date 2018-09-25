@@ -65,4 +65,10 @@ public class OrderBean implements WritableComparable<OrderBean> {
         this.itemid = new Text(dataInput.readUTF());
         this.amount = new DoubleWritable(dataInput.readDouble());
     }
+
+
+    @Override
+    public String toString() {
+        return itemid.toString()+"\t" + amount.get();
+    }
 }

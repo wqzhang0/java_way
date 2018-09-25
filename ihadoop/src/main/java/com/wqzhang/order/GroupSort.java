@@ -30,7 +30,6 @@ public class GroupSort {
 
             bean.set(new Text(fields[0]), new DoubleWritable(Double.parseDouble(fields[2])));
             context.write(bean, NullWritable.get());
-            ;
         }
     }
 
@@ -53,11 +52,12 @@ public class GroupSort {
         job.setReducerClass(SortReducer.class);
 
         job.setGroupingComparatorClass(MyGroupingComparator.class);
+        job.setPartitionerClass(ItemIdPartitioner.class);
         job.setNumReduceTasks(2);
 
 
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(FlowBean.class);
+//        job.setOutputKeyClass(Text.class);
+//        job.setOutputValueClass(FlowBean.class);
 
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

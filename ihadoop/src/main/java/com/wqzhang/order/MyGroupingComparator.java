@@ -10,6 +10,7 @@ import org.apache.hadoop.io.WritableComparator;
 public class MyGroupingComparator extends WritableComparator {
 
     public MyGroupingComparator() {
+        super(OrderBean.class,true);
     }
 
     @Override
