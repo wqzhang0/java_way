@@ -30,6 +30,7 @@
         <module>user_api</module>
         <module>user_service</module>
         <module>excel_tools</module>
+        <module>ihadoop</module>
         <module>batch</module>
 
     </modules>
